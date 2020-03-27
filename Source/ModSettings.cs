@@ -33,10 +33,8 @@ namespace MoreComps
       Listing_Standard listing = new Listing_Standard();
       listing.Begin(inRect);
 
-      if (MoreCompsModSettings.OriginalCompsAmount >= 1)
+      if (Current.ProgramState == ProgramState.Playing)
       {
-        listing.Label("MCRestartWarning".Translate());
-        listing.Gap(24);
         listing.Label("MCMultiplyAmountLabel".Translate() + ": [" + MoreCompsModSettings.OriginalCompsAmount.ToString() + " x " + (MoreCompsModSettings.multiplyMC * 100).ToString() + "%] = " + (MoreCompsModSettings.OriginalCompsAmount * MoreCompsModSettings.multiplyMC).ToString() + " " + "MCMultiplyAmountEndLabel".Translate());
         MoreCompsModSettings.multiplyMC = RoundToNearestHalf(listing.Slider(MoreCompsModSettings.multiplyMC, 0f, 20f));
         if (MoreCompsModSettings.OriginalCompsAmount * MoreCompsModSettings.multiplyMC >= 75)
@@ -47,6 +45,10 @@ namespace MoreComps
       }
 
       listing.End();
+
+      if (Current.ProgramState == ProgramState.Playing)
+        UpdateAllSettings();
+
       base.DoSettingsWindowContents(inRect);
     }
 
@@ -58,6 +60,11 @@ namespace MoreComps
     private float RoundToNearestHalf(float val)
     { 
       return (float)Math.Round(val * 2, MidpointRounding.AwayFromZero) / 2;
+    }
+
+    public void UpdateAllSettings()
+    {
+      DefDatabase<ThingDef>.GetNamed("MineableComponentsIndustrial").building.mineableYield = (int)Math.Floor(MoreCompsModSettings.OriginalCompsAmount * MoreCompsModSettings.multiplyMC);
     }
   }
 }

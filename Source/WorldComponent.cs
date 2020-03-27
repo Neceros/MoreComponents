@@ -14,13 +14,11 @@ namespace MoreComps
     {
       base.FinalizeInit();
 
-      MoreCompsModSettings.OriginalCompsAmount = DefDatabase<ThingDef>.GetNamed("MineableComponentsIndustrial").building.mineableYield;
-      ApplyAllChanges();
-    }
-
-    public void ApplyAllChanges()
-    {
-      DefDatabase<ThingDef>.GetNamed("MineableComponentsIndustrial").building.mineableYield = (int)Math.Floor(MoreCompsModSettings.OriginalCompsAmount * MoreCompsModSettings.multiplyMC);
+      if(!(MoreCompsModSettings.OriginalCompsAmount > 0))
+      {
+        MoreCompsModSettings.OriginalCompsAmount = DefDatabase<ThingDef>.GetNamed("MineableComponentsIndustrial").building.mineableYield;
+        DefDatabase<ThingDef>.GetNamed("MineableComponentsIndustrial").building.mineableYield = (int)Math.Floor(MoreCompsModSettings.OriginalCompsAmount * MoreCompsModSettings.multiplyMC);
+      }
     }
   }
 }
