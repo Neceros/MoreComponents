@@ -6,4 +6,5 @@
   <MCStackWarning>WARNING: You must have a mod which increases your stack sizes (like OgreStack, or StackXXL) or you will get errors and your yield will be capped at 75!</MCStackWarning>
   <MCRestartWarning>You must restart if you make any changes.</MCRestartWarning>
   <MCTitle>More Components</MCTitle>
+  <MCOnlyInGame>You can only change these settings from within game.</MCOnlyInGame>
 </LanguageData>

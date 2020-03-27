@@ -32,13 +32,20 @@ namespace MoreComps
     {
       Listing_Standard listing = new Listing_Standard();
       listing.Begin(inRect);
-      listing.Label("MCRestartWarning".Translate());
-      listing.Gap(24);
-      listing.Label("MCMultiplyAmountLabel".Translate() + ": [" + MoreCompsModSettings.OriginalCompsAmount.ToString() + " x " + (MoreCompsModSettings.multiplyMC * 100).ToString() + "%] = " + (MoreCompsModSettings.OriginalCompsAmount * MoreCompsModSettings.multiplyMC).ToString() + " " + "MCMultiplyAmountEndLabel".Translate());
-      MoreCompsModSettings.multiplyMC = RoundToNearestHalf(listing.Slider(MoreCompsModSettings.multiplyMC, 0f, 20f));
-      if(MoreCompsModSettings.OriginalCompsAmount * MoreCompsModSettings.multiplyMC >= 75)
-        listing.Label("MCStackWarning".Translate());
-      
+
+      if (MoreCompsModSettings.OriginalCompsAmount >= 1)
+      {
+        listing.Label("MCRestartWarning".Translate());
+        listing.Gap(24);
+        listing.Label("MCMultiplyAmountLabel".Translate() + ": [" + MoreCompsModSettings.OriginalCompsAmount.ToString() + " x " + (MoreCompsModSettings.multiplyMC * 100).ToString() + "%] = " + (MoreCompsModSettings.OriginalCompsAmount * MoreCompsModSettings.multiplyMC).ToString() + " " + "MCMultiplyAmountEndLabel".Translate());
+        MoreCompsModSettings.multiplyMC = RoundToNearestHalf(listing.Slider(MoreCompsModSettings.multiplyMC, 0f, 20f));
+        if (MoreCompsModSettings.OriginalCompsAmount * MoreCompsModSettings.multiplyMC >= 75)
+          listing.Label("MCStackWarning".Translate());
+      } else
+      {
+        listing.Label("MCOnlyInGame".Translate());
+      }
+
       listing.End();
       base.DoSettingsWindowContents(inRect);
     }
